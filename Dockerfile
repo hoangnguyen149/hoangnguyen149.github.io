@@ -7,6 +7,9 @@ RUN test -s index.html && grep -q "</html>" index.html
 
 # Stage 2: runtime nginx không chạy bằng root
 FROM nginxinc/nginx-unprivileged:stable-alpine
+# Vá các gói hệ điều hành (OpenSSL...) ngay khi build, rồi trả lại user non-root
+USER root
+RUN apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=verify /site/ /usr/share/nginx/html/
 USER 101

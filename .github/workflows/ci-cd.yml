@@ -16,10 +16,10 @@ concurrency:
 jobs:
   validate:
     name: Lint & validate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
       - name: HTML validate
@@ -29,9 +29,9 @@ jobs:
 
   security:
     name: Security scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Secret scan (gitleaks)
@@ -48,17 +48,23 @@ jobs:
 
   docker:
     name: Docker build & image scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: [validate, security]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build image
         run: docker build -t portfolio:${{ github.sha }} .
       - name: Smoke test container
         run: |
           docker run -d --name web -p 8080:8080 portfolio:${{ github.sha }}
-          for i in $(seq 1 10); do curl -fsS http://localhost:8080/health && break; sleep 1; done
-          curl -fsS http://localhost:8080/ | grep -q "DevOps Engineer"
+          ok=0
+          for i in $(seq 1 15); do
+            if curl -fsS http://localhost:8080/health; then ok=1; break; fi
+            sleep 1
+          done
+          if [ "$ok" -ne 1 ]; then echo "::error::/health did not respond"; docker logs web; exit 1; fi
+          curl -fsS http://localhost:8080/ | grep -q "DevOps Engineer" || { echo "::error::index.html content check failed"; exit 1; }
+          echo "Smoke test passed"
       - name: Trivy image scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
@@ -66,12 +72,13 @@ jobs:
           severity: CRITICAL
           ignore-unfixed: true
           exit-code: "1"
+          format: table
 
   deploy:
     name: Deploy to GitHub Pages
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: [docker]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
@@ -81,7 +88,7 @@ jobs:
     outputs:
       page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Prepare site
         run: mkdir _site && cp index.html robots.txt sitemap.xml _site/
       - uses: actions/configure-pages@v5
@@ -94,7 +101,7 @@ jobs:
   health-check:
     name: Production health check
     needs: [deploy]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Check site responds
         run: |
