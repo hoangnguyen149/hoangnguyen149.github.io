@@ -6,7 +6,7 @@ COPY index.html robots.txt sitemap.xml ./
 RUN test -s index.html && grep -q "</html>" index.html
 
 # Stage 2: runtime nginx không chạy bằng root
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM nginxinc/nginx-unprivileged:stable-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=verify /site/ /usr/share/nginx/html/
 USER 101
