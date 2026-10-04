@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nguyễn Hoàng Long | DevOps Engineer | Cloud Engineer</title>
+<meta name="description" content="DevOps Engineer specializing in AWS, CI/CD, Docker, Kubernetes, Terraform and cloud infrastructure automation.">
+<!-- TODO — USER INPUT REQUIRED: thay USERNAME bằng domain thật sau khi deploy -->
+<link rel="canonical" href="https://USERNAME.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nguyễn Hoàng Long | DevOps Engineer | Cloud Engineer">
+<meta property="og:description" content="DevOps Engineer specializing in AWS, CI/CD, Docker, Kubernetes, Terraform and cloud infrastructure automation.">
+<meta property="og:url" content="https://USERNAME.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nguyễn Hoàng Long | DevOps Engineer | Cloud Engineer">
+<meta name="twitter:description" content="DevOps Engineer specializing in AWS, CI/CD, Docker, Kubernetes, Terraform and cloud infrastructure automation.">
+<meta name="theme-color" content="#0A1020">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Nguyễn Hoàng Long","jobTitle":"DevOps Engineer / Cloud Engineer",
+ "alumniOf":{"@type":"CollegeOrUniversity","name":"HUTECH University"},"address":{"@type":"PostalAddress","addressCountry":"VN"},
+ "sameAs":["https://www.linkedin.com/in/nguy%E1%BB%85n-ho%C3%A0ng-long"],
+ "knowsAbout":["AWS","CI/CD","Docker","Kubernetes","Terraform","Ansible","Linux","Monitoring"]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js" defer></script>
+<script>
+  try{ const th = localStorage.getItem("theme"); if(th==="light"||th==="dark") document.documentElement.dataset.theme = th; }catch(e){}
+</script>
+<style>
+/* ================= DESIGN TOKENS ================= */
+:root{
+  --bg:#0A1020; --bg2:#0E1629; --card:rgba(148,190,255,.045); --card-solid:#111A2E;
+  --line:rgba(148,170,210,.16); --text:#E6EDF7; --muted:#8FA3BF;
+  --accent:#38BDF8; --accent2:#60A5FA; --ok:#34D399; --warn:#FBBF24; --err:#F87171;
+  --on-accent:#04121F;
+  --sans:"Geist","Inter","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --r:14px;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0A1020; --text:#E6EDF7; } }
+:root[data-theme="dark"]{ --bg:#0A1020; --text:#E6EDF7; }
+:root[data-theme="light"]{
+  --bg:#F4F7FB; --bg2:#EAF0F8; --card:rgba(255,255,255,.75); --card-solid:#FFFFFF;
+  --line:rgba(15,23,42,.12); --text:#0F172A; --muted:#475569;
+  --accent:#0284C7; --accent2:#2563EB; --ok:#059669; --warn:#B45309; --err:#DC2626; --on-accent:#FFFFFF;
+  color-scheme:light;
+}
+html{ scroll-behavior:smooth; scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px); }
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *,*::before,*::after{animation:none!important;transition:none!important} }
+*,*::before,*::after{ box-sizing:inherit; margin:0; }
+body{ background:var(--bg); color:var(--text); font-family:var(--sans); font-size:1rem; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a{ color:var(--accent); text-underline-offset:3px; }
+button{ font:inherit; color:inherit; }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:8px; }
+.wrap{ width:min(1180px,100% - 2.5rem); margin-inline:auto; }
+.mono{ font-family:var(--mono); }
+.muted{ color:var(--muted); }
+.card{ background:var(--card); border:1px solid var(--line); border-radius:var(--r); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.todo{ display:inline-block; font:500 .72rem var(--mono); color:var(--warn); border:1px dashed var(--warn); border-radius:6px; padding:.05rem .4rem; white-space:nowrap; }
+.badge{ display:inline-block; font:500 .72rem var(--mono); border-radius:999px; padding:.15rem .6rem; border:1px solid var(--line); color:var(--muted); }
+.icon{ width:1em; height:1em; vertical-align:-.15em; }
+svg.lucide{ width:1.05em; height:1.05em; vertical-align:-.17em; stroke-width:2; }
+
+/* ================= NAV ================= */
+header.nav{ position:fixed; inset:0 0 auto 0; z-index:30; padding-top:env(safe-area-inset-top,0px);
+  background:color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+.nav .wrap{ display:flex; align-items:center; gap:1rem; height:64px; }
+.brand{ font:500 .95rem var(--mono); color:var(--text); text-decoration:none; margin-right:auto; }
+.brand b{ color:var(--accent); font-weight:500; }
+.menu{ display:flex; gap:1.1rem; list-style:none; padding:0; }
+.menu a{ color:var(--muted); text-decoration:none; font-size:.9rem; }
+.menu a:hover, .menu a[aria-current="true"]{ color:var(--text); }
+.tools{ display:flex; gap:.4rem; align-items:center; }
+.ibtn{ background:none; border:1px solid var(--line); border-radius:10px; height:36px; min-width:36px; padding:0 .55rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:.3rem; font:500 .78rem var(--mono); color:var(--text); }
+.ibtn:hover{ border-color:var(--accent); }
+#menuBtn{ display:none; }
+@media (max-width:1060px){
+  #menuBtn{ display:inline-flex; }
+  .menu{ position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; padding:.5rem 1.25rem 1rem; background:var(--bg); border-bottom:1px solid var(--line); display:none; }
+  .menu.open{ display:flex; }
+  .menu a{ display:block; padding:.6rem 0; font-size:1rem; }
+}
+
+/* ================= HERO ================= */
+.hero{ position:relative; padding:150px 0 80px; overflow:hidden; }
+.hero::before{ content:""; position:absolute; inset:0; z-index:-1;
+  background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:48px 48px; mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%); -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%); opacity:.6; }
+.hero .name{ font:500 1rem var(--mono); color:var(--accent); }
+.hero h1{ font-weight:800; font-size:clamp(2.3rem,6vw,4.4rem); line-height:1.05; letter-spacing:-.035em; margin-top:.6rem; max-width:16ch; }
+.hero .subline{ font-size:clamp(1.05rem,2vw,1.3rem); color:var(--muted); max-width:52ch; margin-top:1.1rem; }
+.facts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:.8rem; margin-top:2rem; max-width:820px; }
+.facts div{ padding:.8rem 1rem; }
+.facts dt{ font-size:.78rem; color:var(--muted); }
+.facts dd{ font-weight:600; margin-top:.15rem; }
+.cta{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:2rem; }
+.btn{ display:inline-flex; align-items:center; gap:.45rem; text-decoration:none; font-weight:600; font-size:.92rem; padding:.75rem 1.15rem; border-radius:10px; border:1px solid var(--line); color:var(--text); background:var(--card); cursor:pointer; }
+.btn:hover{ border-color:var(--accent); }
+.btn.primary{ background:var(--accent); border-color:var(--accent); color:var(--on-accent); }
+.hero-flow{ margin-top:3.2rem; padding:1rem 1.1rem; }
+.hero-flow .cap{ font:400 .78rem var(--mono); color:var(--muted); margin-bottom:.5rem; }
+
+/* ================= FLOW (diagrams) ================= */
+.flow{ display:flex; align-items:center; overflow-x:auto; padding:.4rem .1rem; }
+.node{ flex:none; font:500 .8rem var(--mono); padding:.55rem .8rem; border:1px solid var(--line); border-radius:10px; background:var(--card-solid); color:var(--text); white-space:nowrap; text-align:center; }
+button.node{ cursor:pointer; }
+button.node:hover{ border-color:var(--accent); }
+.node.sel{ border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.conn{ flex:1 0 22px; min-width:22px; height:2px; background:var(--line); position:relative; overflow:hidden; }
+.conn::after{ content:""; position:absolute; top:-2px; left:-10px; width:10px; height:6px; border-radius:3px; background:var(--accent); animation:flowx 1.8s linear infinite; animation-delay:var(--d,0s); }
+@keyframes flowx{ to{ left:100%; } }
+@media (max-width:720px){
+  .flow:not(.row){ flex-direction:column; align-items:center; }
+  .flow:not(.row) .node{ width:min(100%,300px); }
+  .flow:not(.row) .conn{ flex:none; width:2px; height:20px; min-width:0; }
+  .flow:not(.row) .conn::after{ left:-2px; top:-10px; width:6px; height:10px; animation-name:flowy; }
+}
+@keyframes flowy{ to{ top:100%; } }
+.side{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; margin-top:.8rem; }
+.side .lbl{ font-size:.8rem; color:var(--muted); margin-right:.3rem; }
+.chip{ font:400 .76rem var(--mono); border:1px dashed var(--line); border-radius:8px; padding:.25rem .55rem; background:none; color:var(--text); }
+button.chip{ cursor:pointer; } button.chip:hover{ border-color:var(--accent); }
+pre.tree{ font:400 .82rem/1.55 var(--mono); padding:1rem 1.1rem; overflow-x:auto; border-radius:10px; background:var(--card-solid); border:1px solid var(--line); }
+
+/* ================= SECTIONS ================= */
+section{ padding:clamp(3.5rem,8vw,5.5rem) 0; border-top:1px solid var(--line); }
+.sec-h h2{ font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:700; letter-spacing:-.025em; line-height:1.15; }
+.sec-h p{ color:var(--muted); margin-top:.5rem; max-width:65ch; }
+.sec-h{ margin-bottom:2rem; }
+
+/* about */
+.about{ display:grid; grid-template-columns:1.3fr 1fr; gap:2.5rem; }
+.about .prose p + p{ margin-top:1rem; }
+.about .prose{ max-width:62ch; }
+.pillars{ display:grid; gap:.7rem; align-content:start; list-style:none; padding:0; }
+.pillars li{ padding:.85rem 1rem; display:flex; gap:.7rem; }
+.pillars li svg{ color:var(--accent); flex:none; margin-top:.2rem; }
+.pillars b{ display:block; font-weight:600; }
+.pillars span{ color:var(--muted); font-size:.9rem; }
+@media (max-width:860px){ .about{ grid-template-columns:1fr; } }
+
+/* skills */
+.legend{ display:flex; flex-wrap:wrap; gap:1.2rem; margin-bottom:1.5rem; font-size:.88rem; color:var(--muted); }
+.lv{ display:inline-flex; align-items:center; gap:.35rem; font:500 .72rem var(--mono); border-radius:999px; padding:.12rem .55rem; white-space:nowrap; }
+.lv::before{ content:""; width:7px; height:7px; border-radius:50%; background:currentColor; }
+.lv.wk{ color:var(--accent2); background:color-mix(in srgb, var(--accent2) 12%, transparent); }
+.lv.pr{ color:var(--ok); background:color-mix(in srgb, var(--ok) 12%, transparent); }
+.lv.adv{ color:#C084FC; background:rgba(192,132,252,.12); }
+.lv.todo{ color:var(--warn); background:none; border:1px dashed var(--warn); }
+.skillgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:1rem; }
+.skillgrid .card{ padding:1.1rem 1.2rem; }
+.skillgrid h3{ font-size:1rem; font-weight:600; display:flex; align-items:center; gap:.5rem; margin-bottom:.6rem; }
+.skillgrid h3 svg{ color:var(--accent); }
+.skillgrid ul{ list-style:none; padding:0; }
+.skillgrid li{ display:flex; justify-content:space-between; align-items:center; gap:.6rem; padding:.38rem 0; border-top:1px solid var(--line); font-size:.92rem; }
+.skillgrid li:first-child{ border-top:0; }
+
+/* projects */
+.pgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.1rem; }
+.pcard{ padding:1.3rem; display:flex; flex-direction:column; gap:.7rem; }
+.pcard .top{ display:flex; justify-content:space-between; align-items:center; gap:.5rem; }
+.pcard .num{ font:500 .8rem var(--mono); color:var(--accent); }
+.pcard h3{ font-size:1.2rem; font-weight:700; letter-spacing:-.01em; line-height:1.25; }
+.pcard p{ color:var(--muted); font-size:.93rem; }
+.tags{ display:flex; flex-wrap:wrap; gap:.35rem; }
+.tags span{ font:400 .72rem var(--mono); color:var(--accent); background:color-mix(in srgb, var(--accent) 10%, transparent); border-radius:6px; padding:.15rem .45rem; }
+.pcard .btn{ margin-top:auto; align-self:flex-start; }
+
+dialog#pdlg{ width:min(920px, 100% - 1.5rem); max-height:calc(100% - 2rem); border:1px solid var(--line); border-radius:18px; padding:0; background:var(--bg2); color:var(--text); }
+dialog#pdlg::backdrop{ background:rgba(2,6,16,.7); backdrop-filter:blur(3px); }
+.dlg-head{ position:sticky; top:0; background:var(--bg2); border-bottom:1px solid var(--line); padding:1rem 1.3rem; display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; z-index:1; }
+.dlg-head h3{ font-size:1.3rem; font-weight:700; line-height:1.25; }
+.dlg-body{ padding:1.3rem; display:grid; gap:1.4rem; }
+.dlg-body h4{ font-size:.8rem; font-family:var(--mono); color:var(--accent); font-weight:500; margin-bottom:.45rem; }
+.kv{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; }
+.kv > div{ padding:1rem; }
+.kv p{ font-size:.93rem; }
+.dash{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.6rem; }
+.dash div{ padding:.75rem .85rem; border:1px solid var(--line); border-radius:10px; background:var(--card-solid); }
+.dash small{ color:var(--muted); font-size:.75rem; display:block; }
+.dash b{ font:500 1.2rem var(--mono); }
+.dash svg{ display:block; width:100%; height:26px; margin-top:.3rem; }
+.issues{ display:grid; gap:.5rem; }
+.issues div{ display:grid; grid-template-columns:170px 1fr; gap:.8rem; padding:.6rem .8rem; border:1px solid var(--line); border-radius:10px; font-size:.88rem; }
+.issues code{ font-family:var(--mono); font-size:.8rem; color:var(--accent); overflow-wrap:anywhere; }
+@media (max-width:600px){ .issues div{ grid-template-columns:1fr; gap:.2rem; } }
+
+/* lab */
+.tabs{ display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.1rem; }
+.tab{ border:1px solid var(--line); background:none; border-radius:999px; padding:.45rem .95rem; cursor:pointer; font-size:.88rem; display:inline-flex; gap:.4rem; align-items:center; }
+.tab[aria-selected="true"]{ background:var(--accent); border-color:var(--accent); color:var(--on-accent); }
+.labbox{ padding:1.3rem; }
+.labbox .hint{ font-size:.82rem; color:var(--muted); margin-bottom:.8rem; }
+.info{ margin-top:1.2rem; padding:1rem 1.1rem; border-radius:12px; border:1px solid var(--line); background:var(--card-solid); display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.9rem; }
+.info h4{ grid-column:1/-1; font-size:1.05rem; }
+.info dt{ font:500 .72rem var(--mono); color:var(--accent); }
+.info dd{ font-size:.9rem; margin-top:.15rem; }
+
+/* pipeline */
+.pipe{ display:flex; gap:.4rem; overflow-x:auto; padding:.3rem .1rem .6rem; }
+.stage{ flex:1 0 108px; border:1px solid var(--line); border-radius:12px; padding:.7rem .7rem; background:var(--card-solid); cursor:pointer; text-align:left; display:grid; gap:.3rem; position:relative; }
+.stage .n{ font:500 .72rem var(--mono); color:var(--muted); }
+.stage b{ font-size:.9rem; font-weight:600; }
+.stage .st{ font:500 .7rem var(--mono); color:var(--muted); }
+.stage[data-s="running"]{ border-color:var(--warn); } .stage[data-s="running"] .st{ color:var(--warn); }
+.stage[data-s="passed"]{ border-color:color-mix(in srgb, var(--ok) 60%, transparent); } .stage[data-s="passed"] .st{ color:var(--ok); }
+.stage.sel{ box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); border-color:var(--accent); }
+.stage[data-s="running"]::after{ content:""; position:absolute; left:10px; right:10px; bottom:6px; height:2px; background:linear-gradient(90deg, transparent, var(--warn), transparent); background-size:200% 100%; animation:scan 1s linear infinite; }
+@keyframes scan{ from{background-position:100% 0} to{background-position:-100% 0} }
+.pipe-actions{ display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin-top:.8rem; }
+pre.cmd{ font:400 .8rem var(--mono); background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:.6rem .8rem; overflow-x:auto; margin-top:.2rem; }
+
+/* incidents */
+.incidents{ display:grid; gap:.8rem; }
+details.inc{ padding:0; }
+details.inc summary{ list-style:none; cursor:pointer; padding:1rem 1.2rem; display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:center; }
+details.inc summary::-webkit-details-marker{ display:none; }
+details.inc summary .id{ font:500 .8rem var(--mono); color:var(--err); }
+details.inc summary b{ font-weight:600; }
+details.inc summary .chev{ margin-left:auto; transition:transform .2s; color:var(--muted); }
+details.inc[open] summary .chev{ transform:rotate(180deg); }
+.inc-body{ padding:0 1.2rem 1.2rem; display:grid; gap:1.1rem; }
+.inc-body h4{ font:500 .78rem var(--mono); color:var(--accent); margin-bottom:.4rem; }
+.check{ list-style:none; padding:0; display:grid; gap:.45rem; }
+.check li{ display:grid; grid-template-columns:200px 1fr; gap:.8rem; font-size:.9rem; align-items:start; }
+.check code{ font:400 .78rem var(--mono); color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:.2rem .45rem; overflow-wrap:anywhere; }
+@media (max-width:640px){ .check li{ grid-template-columns:1fr; gap:.25rem; } }
+
+/* notes */
+.notes{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1rem; }
+.notes .card{ padding:1.1rem 1.2rem; }
+.notes h3{ font-size:1rem; display:flex; justify-content:space-between; align-items:center; gap:.5rem; margin-bottom:.5rem; }
+.notes ul{ padding-left:1.1rem; color:var(--muted); font-size:.9rem; }
+
+/* github */
+.repos{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+.repo{ padding:1rem 1.1rem; display:grid; gap:.4rem; }
+.repo a{ font-weight:600; text-decoration:none; color:var(--text); }
+.repo a:hover{ color:var(--accent); }
+.repo p{ color:var(--muted); font-size:.88rem; }
+.repo .meta{ display:flex; flex-wrap:wrap; gap:.8rem; font:400 .75rem var(--mono); color:var(--muted); }
+.ghempty{ padding:1.3rem; display:grid; gap:.5rem; }
+
+/* contact */
+.contact{ display:grid; grid-template-columns:1fr 1.2fr; gap:2rem; }
+.clist{ list-style:none; padding:0; display:grid; gap:.7rem; }
+.clist li{ display:flex; gap:.7rem; align-items:center; padding:.8rem 1rem; }
+.clist svg{ color:var(--accent); flex:none; }
+.clist small{ display:block; color:var(--muted); font-size:.75rem; }
+.clist a{ color:var(--text); text-decoration:none; overflow-wrap:anywhere; }
+.clist a:hover{ color:var(--accent); }
+.form{ padding:1.3rem; display:grid; gap:.9rem; }
+.form label{ display:block; font-size:.83rem; color:var(--muted); margin-bottom:.3rem; }
+.form input, .form textarea{ width:100%; font:inherit; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:.7rem .85rem; }
+.form input:focus, .form textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+.form .err{ color:var(--err); font-size:.8rem; margin-top:.25rem; min-height:1em; }
+.hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+#formNote{ font-size:.85rem; min-height:1.2em; }
+@media (max-width:860px){ .contact{ grid-template-columns:1fr; } }
+
+footer{ border-top:1px solid var(--line); padding:1.8rem 0 2.2rem; color:var(--muted); font-size:.85rem; }
+footer .wrap{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; }
+
+/* resume */
+#resume{ padding:110px 0 4rem; }
+.rv{ max-width:860px; margin-inline:auto; padding:clamp(1.4rem,4vw,2.6rem); }
+.rv-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; align-items:flex-start; border-bottom:1px solid var(--line); padding-bottom:1.2rem; margin-bottom:1.2rem; }
+.rv-top h1{ font-size:2rem; font-weight:800; letter-spacing:-.02em; }
+.rv-top .role{ color:var(--accent); font-weight:600; }
+.rv-top .contacts{ font-size:.85rem; color:var(--muted); margin-top:.4rem; }
+.rv h2{ font:600 .8rem var(--mono); color:var(--accent); margin:1.4rem 0 .5rem; }
+.rv p, .rv li{ font-size:.93rem; }
+.rv ul{ padding-left:1.1rem; }
+.rv .row2{ display:grid; grid-template-columns:200px 1fr; gap:.3rem 1rem; font-size:.92rem; }
+@media (max-width:600px){ .rv .row2{ grid-template-columns:1fr; } }
+.rv-actions{ display:flex; gap:.6rem; flex-wrap:wrap; }
+
+@media print{
+  header.nav, main, footer, .rv-actions, dialog{ display:none!important; }
+  #resume{ display:block!important; padding:0; }
+  body{ background:#fff; color:#000; }
+  .card{ background:none; border:0; backdrop-filter:none; }
+  .rv{ padding:0; } .rv h2, .rv-top .role{ color:#0b4a6f; } .todo{ color:#8a5a00; border-color:#8a5a00; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>~/</b>hoanglong</a>
+    <ul class="menu" id="menu">
+      <li><a href="#about" data-t="nav.about">Giới thiệu</a></li>
+      <li><a href="#skills" data-t="nav.skills">Kỹ năng</a></li>
+      <li><a href="#projects" data-t="nav.projects">Dự án</a></li>
+      <li><a href="#lab" data-t="nav.lab">Architecture Lab</a></li>
+      <li><a href="#pipeline" data-t="nav.pipeline">CI/CD</a></li>
+      <li><a href="#troubleshooting" data-t="nav.trouble">Troubleshooting</a></li>
+      <li><a href="#notes" data-t="nav.notes">Ghi chú kỹ thuật</a></li>
+      <li><a href="#contact" data-t="nav.contact">Liên hệ</a></li>
+      <li><a href="#/resume" data-t="nav.resume">Resume</a></li>
+    </ul>
+    <div class="tools">
+      <button class="ibtn" id="langBtn" type="button" aria-label="Language"></button>
+      <button class="ibtn" id="themeBtn" type="button" aria-label="Theme"><i data-lucide="sun-moon">◐</i></button>
+      <button class="ibtn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i data-lucide="menu">☰</i></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="name" id="heroName"></p>
+      <h1>DevOps Engineer | Cloud &amp; Automation</h1>
+      <p class="subline" data-t="hero.sub">Xây dựng hạ tầng tin cậy, pipeline triển khai tự động và hệ thống cloud có khả năng mở rộng.</p>
+      <dl class="facts" id="facts"></dl>
+      <div class="cta" id="heroCta"></div>
+      <div class="hero-flow card">
+        <div class="cap" data-t="hero.flowcap">Luồng giao hàng: từ commit đến production</div>
+        <div id="heroFlow"></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="about"><div class="wrap">
+    <div class="sec-h"><h2 data-t="nav.about">Giới thiệu</h2></div>
+    <div class="about">
+      <div class="prose" id="aboutText"></div>
+      <ul class="pillars" id="pillars"></ul>
+    </div>
+  </div></section>
+
+  <section id="skills"><div class="wrap">
+    <div class="sec-h"><h2 data-t="skills.h">DevOps Skill Matrix</h2><p data-t="skills.p">Đánh giá theo mức độ trưởng thành thay vì phần trăm. Mức chưa được xác nhận được đánh dấu TODO.</p></div>
+    <div class="legend" id="legend"></div>
+    <div class="skillgrid" id="skillgrid"></div>
+  </div></section>
+
+  <section id="projects"><div class="wrap">
+    <div class="sec-h"><h2 data-t="proj.h">Featured Projects</h2><p data-t="proj.p">Mỗi dự án là một case study: vấn đề, kiến trúc, hạ tầng, CI/CD, bảo mật, giám sát và kết quả.</p></div>
+    <div class="pgrid" id="pgrid"></div>
+  </div></section>
+
+  <section id="lab"><div class="wrap">
+    <div class="sec-h"><h2>DevOps Architecture Lab</h2><p data-t="lab.p">Chọn một mảng để xem sơ đồ kiến trúc. Bấm vào từng thành phần để xem vai trò, lý do chọn, bảo mật và chi phí.</p></div>
+    <div class="tabs" role="tablist" id="labTabs"></div>
+    <div class="labbox card" id="labBox"></div>
+  </div></section>
+
+  <section id="pipeline"><div class="wrap">
+    <div class="sec-h"><h2 data-t="pipe.h">CI/CD Pipeline tương tác</h2><p data-t="pipe.p">Bấm vào từng stage để xem công cụ, lệnh và điều kiện pass. Nút chạy chỉ mô phỏng thứ tự thực thi.</p></div>
+    <div class="pipe" id="pipe"></div>
+    <div class="pipe-actions">
+      <button class="btn primary" id="runPipe" type="button"><i data-lucide="play"></i><span data-t="pipe.run">Chạy mô phỏng</span></button>
+      <button class="btn" id="resetPipe" type="button"><i data-lucide="rotate-ccw"></i><span data-t="pipe.reset">Đặt lại</span></button>
+      <span class="badge" data-t="pipe.sim">Mô phỏng · không phải số liệu thật</span>
+    </div>
+    <div class="info" id="stageInfo"></div>
+  </div></section>
+
+  <section id="troubleshooting"><div class="wrap">
+    <div class="sec-h"><h2>Production Troubleshooting</h2><p data-t="inc.p">Các incident giả lập theo kiểu post-mortem: quy trình điều tra, checklist và lệnh kiểm tra. Root cause và cách khắc phục điền từ lab thực tế.</p></div>
+    <div class="incidents" id="incidents"></div>
+  </div></section>
+
+  <section id="notes"><div class="wrap">
+    <div class="sec-h"><h2 data-t="notes.h">DevOps Knowledge</h2><p data-t="notes.p">Ghi chú kỹ thuật theo chủ đề. Bài viết sẽ được bổ sung dần.</p></div>
+    <div class="notes" id="notesGrid"></div>
+  </div></section>
+
+  <section id="github"><div class="wrap">
+    <div class="sec-h"><h2>GitHub</h2><p data-t="gh.p">Repository công khai, cập nhật gần nhất.</p></div>
+    <div id="ghBox"></div>
+  </div></section>
+
+  <section id="contact"><div class="wrap">
+    <div class="sec-h"><h2 data-t="nav.contact">Liên hệ</h2><p data-t="contact.p">Trao đổi về vị trí DevOps / Cloud. Form sẽ mở ứng dụng email của bạn với nội dung điền sẵn.</p></div>
+    <div class="contact">
+      <ul class="clist" id="clist"></ul>
+      <div class="form card" id="cform">
+        <div><label for="fName" data-t="f.name">Họ tên</label><input id="fName" type="text" maxlength="80" autocomplete="name"><div class="err" id="eName"></div></div>
+        <div><label for="fEmail">Email</label><input id="fEmail" type="email" maxlength="120" autocomplete="email"><div class="err" id="eEmail"></div></div>
+        <div><label for="fMsg" data-t="f.msg">Lời nhắn</label><textarea id="fMsg" rows="5" maxlength="2000"></textarea><div class="err" id="eMsg"></div></div>
+        <div class="hp" aria-hidden="true"><label for="fWeb">Website</label><input id="fWeb" type="text" tabindex="-1" autocomplete="off"></div>
+        <button class="btn primary" id="fSend" type="button"><i data-lucide="send"></i><span data-t="f.send">Gửi</span></button>
+        <p id="formNote" role="status"></p>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<!-- RESUME VIEW (#/resume) -->
+<div id="resume" hidden>
+  <div class="wrap"><article class="rv card" id="rv"></article></div>
+</div>
+
+<footer><div class="wrap"><span id="foot"></span><span class="mono">Static site · GitHub Actions · Docker</span></div></footer>
+
+<dialog id="pdlg" aria-labelledby="dlgTitle"><div id="dlgContent"></div></dialog>
+
+<script>
+/* =====================================================================
+   CẤU HÌNH & NỘI DUNG — SỬA Ở ĐÂY / CONFIG & CONTENT — EDIT HERE
+   Mọi chỗ còn thiếu hiển thị [TODO — USER INPUT REQUIRED] trên trang.
+   ===================================================================== */
+const CONFIG = {
+  name: { vi:"Nguyễn Hoàng Long", en:"Nguyen Hoang Long" },
+  position: "DevOps Engineer / Cloud Engineer",
+  experience: { vi:"2–3 năm", en:"2–3 years" },
+  location: { vi:"Việt Nam", en:"Vietnam" },
+  focus: "AWS · Terraform · Kubernetes · CI/CD",
+  email: "hoanglong53141@gmail.com",
+  linkedin: "https://www.linkedin.com/in/nguy%E1%BB%85n-ho%C3%A0ng-long",
+  github: "",   // TODO: username GitHub, ví dụ "hoanglong53141"
+  cvUrl: ""     // TODO: link file CV PDF (để trống = dùng trang /resume + In PDF)
+};
+
+const L = (vi, en) => ({ vi, en });
+const TODO = '<span class="todo">[TODO — USER INPUT REQUIRED]</span>';
+const TODO_LV = '<span class="lv todo">TODO — CONFIRM</span>';
+
+const UI = {
+  "nav.about":L("Giới thiệu","About"), "nav.skills":L("Kỹ năng","Skills"), "nav.projects":L("Dự án","Projects"),
+  "nav.lab":L("Architecture Lab","Architecture Lab"), "nav.pipeline":L("CI/CD","CI/CD"), "nav.trouble":L("Troubleshooting","Troubleshooting"),
+  "nav.notes":L("Ghi chú kỹ thuật","Tech notes"), "nav.contact":L("Liên hệ","Contact"), "nav.resume":L("Resume","Resume"),
+  "hero.sub":L("Xây dựng hạ tầng tin cậy, pipeline triển khai tự động và hệ thống cloud có khả năng mở rộng.",
+               "Building reliable infrastructure, automated delivery pipelines, and scalable cloud systems."),
+  "hero.flowcap":L("Luồng giao hàng: từ commit đến production","Delivery flow: from commit to production"),
+  "f.name":L("Họ tên","Name"), "f.msg":L("Lời nhắn","Message"), "f.send":L("Gửi","Submit"),
+  "skills.h":L("DevOps Skill Matrix","DevOps Skill Matrix"),
+  "skills.p":L("Đánh giá theo mức độ trưởng thành thay vì phần trăm. Mức chưa được xác nhận được đánh dấu TODO.",
+               "Rated by maturity level instead of percentages. Unconfirmed levels are marked TODO."),
+  "proj.h":L("Featured Projects","Featured Projects"),
+  "proj.p":L("Mỗi dự án là một case study: vấn đề, kiến trúc, hạ tầng, CI/CD, bảo mật, giám sát và kết quả.",
+             "Each project is a case study: problem, architecture, infrastructure, CI/CD, security, monitoring and result."),
+  "lab.p":L("Chọn một mảng để xem sơ đồ kiến trúc. Bấm vào từng thành phần để xem vai trò, lý do chọn, bảo mật và chi phí.",
+            "Pick an area to see its architecture. Click any component for its purpose, rationale, security and cost notes."),
+  "pipe.h":L("CI/CD Pipeline tương tác","Interactive CI/CD Pipeline"),
+  "pipe.p":L("Bấm vào từng stage để xem công cụ, lệnh và điều kiện pass. Nút chạy chỉ mô phỏng thứ tự thực thi.",
+             "Click a stage to see its tool, command and pass condition. The run button only simulates execution order."),
+  "pipe.run":L("Chạy mô phỏng","Run simulation"), "pipe.reset":L("Đặt lại","Reset"), "pipe.sim":L("Mô phỏng · không phải số liệu thật","Simulation · not real data"),
+  "inc.p":L("Các incident giả lập theo kiểu post-mortem: quy trình điều tra, checklist và lệnh kiểm tra. Root cause và cách khắc phục điền từ lab thực tế.",
+            "Simulated incidents in post-mortem style: investigation path, checklist and commands. Root cause and resolution come from real lab results."),
+  "notes.h":L("DevOps Knowledge","DevOps Knowledge"),
+  "notes.p":L("Ghi chú kỹ thuật theo chủ đề. Bài viết sẽ được bổ sung dần.","Technical notes by topic. Articles are being added."),
+  "gh.p":L("Repository công khai, cập nhật gần nhất.","Public repositories, most recently updated."),
+  "contact.p":L("Trao đổi về vị trí DevOps / Cloud. Form sẽ mở ứng dụng email của bạn với nội dung điền sẵn.",
+                "Reach out about DevOps / Cloud roles. The form opens your email app with the message pre-filled."),
+};
+
+const PILLARS = [
+  { i:"workflow", t:"Automation", d:L("Hạ tầng và triển khai đều là code, chạy lặp lại được.","Infrastructure and delivery as code, repeatable every time.") },
+  { i:"shield-check", t:"Reliability & Security", d:L("Least privilege, tách mạng public/private, quét bảo mật trong pipeline.","Least privilege, public/private network split, security scans in the pipeline.") },
+  { i:"activity", t:"Observability", d:L("Metric, log, trace và cảnh báo trước khi lên production.","Metrics, logs, traces and alerts before going to production.") },
+  { i:"piggy-bank", t:"Cost awareness", d:L("Right-size tài nguyên, dọn tài nguyên rảnh, cảnh báo ngân sách.","Right-sizing, cleaning idle resources, budget alerts.") },
+];
+
+/* Mức độ: "wk" Working Knowledge · "pr" Production Ready · "adv" Advanced · "todo" chưa xác nhận */
+const LEVELS = {
+  wk: L("Working Knowledge — dùng được trong project","Working Knowledge — can use it in a project"),
+  pr: L("Production Ready — triển khai và vận hành được","Production Ready — can deploy and operate"),
+  adv: L("Advanced — thiết kế kiến trúc và troubleshooting","Advanced — can design architecture and troubleshoot"),
+};
+const SKILLS = [
+  { g:"Cloud — AWS", i:"cloud", items:[["EC2","wk"],["IAM","wk"],["VPC","todo"],["S3","todo"],["RDS","todo"],["ALB","todo"],["Auto Scaling","todo"],["CloudFront","todo"],["Route 53","todo"],["CloudWatch","todo"],["WAF","todo"],["Cognito","todo"],["AWS Budgets","todo"]] },
+  { g:"DevOps", i:"git-branch", items:[["CI/CD","todo"],["GitHub Actions","todo"],["GitLab CI","todo"],["Jenkins","todo"],["Docker","todo"],["Kubernetes","todo"],["Helm","todo"]] },
+  { g:"Infrastructure as Code", i:"file-code-2", items:[["Terraform","todo"],["Ansible","wk"]] },
+  { g:"Monitoring", i:"gauge", items:[["Prometheus","todo"],["Grafana","todo"],["ELK","todo"],["OpenTelemetry","todo"]] },
+  { g:"Operating Systems", i:"terminal", items:[["Linux","wk"],["Windows Server","todo"]] },
+  { g:"Networking", i:"network", items:[["TCP/IP","wk"],["DNS","todo"],["HTTP/HTTPS","todo"],["Load Balancing","todo"],["Reverse Proxy","todo"],["Firewall","todo"],["VPC / Subnet","todo"],["Routing","wk"],["NAT","todo"]] },
+  { g:"Development", i:"code-2", items:[["Python","wk"],["Bash","todo"],["C# / .NET","todo"],["ASP.NET Core","todo"],["REST API","todo"],["SQL","todo"]] },
+];
+
+/* Thông tin từng thành phần (Architecture Lab & tooltip) */
+const NODE = {
+  "User":{p:L("Người dùng truy cập ứng dụng qua trình duyệt.","End users reaching the app from a browser.")},
+  "Route 53":{p:L("DNS phân giải tên miền về CloudFront.","DNS resolving the domain to CloudFront."),w:L("DNS managed, tích hợp health check và alias record.","Managed DNS with health checks and alias records."),s:L("Bật DNSSEC nếu cần; hạn chế quyền sửa hosted zone.","Enable DNSSEC if needed; restrict hosted zone edits."),c:L("Tính theo hosted zone và số truy vấn, chi phí thấp.","Billed per hosted zone and queries; low cost.")},
+  "CloudFront":{p:L("CDN cache nội dung tĩnh ở edge, giảm độ trễ.","CDN caching static content at the edge."),w:L("Giảm tải cho origin, HTTPS miễn phí với ACM.","Offloads origin, free HTTPS with ACM."),s:L("Chỉ cho phép HTTPS; gắn WAF; origin chỉ nhận traffic từ CloudFront.","HTTPS only; WAF attached; origin accepts CloudFront only."),c:L("Trả theo data transfer; cache tốt giúp giảm chi phí EC2.","Pay per data transfer; good caching lowers EC2 cost.")},
+  "AWS WAF":{p:L("Lọc request độc hại (SQLi, XSS, bot) trước khi vào hệ thống.","Filters malicious requests (SQLi, XSS, bots) at the edge."),w:L("Managed rules có sẵn, chặn ở biên thay vì trong app.","Managed rule sets; block at the edge, not in the app."),s:L("Bật rate-based rule và log WAF.","Enable rate-based rules and WAF logging."),c:L("Tính theo web ACL, rule và số request — chỉ bật rule cần thiết.","Billed per web ACL, rule and request — enable only needed rules.")},
+  "WAF":{p:L("Lọc request độc hại trước khi vào hệ thống.","Filters malicious requests before they reach the system.")},
+  "ALB":{p:L("Cân bằng tải HTTP/HTTPS tới các EC2 trong target group.","HTTP/HTTPS load balancing across EC2 targets."),w:L("Health check, path routing, tích hợp Auto Scaling.","Health checks, path routing, Auto Scaling integration."),s:L("Đặt ở public subnet; Security Group chỉ mở 443.","Lives in public subnets; Security Group opens 443 only."),c:L("Tính theo giờ và LCU — một ALB dùng chung nhiều service.","Billed per hour and LCU — share one ALB across services.")},
+  "Application Load Balancer":{p:L("Cân bằng tải HTTP/HTTPS.","HTTP/HTTPS load balancing.")},
+  "EC2 Auto Scaling":{p:L("Nhóm EC2 tự tăng/giảm theo tải.","EC2 group that scales with load."),w:L("Tự phục hồi instance lỗi, mở rộng ngang.","Self-heals failed instances, scales horizontally."),s:L("Nằm trong private subnet; IAM instance role; chỉ nhận traffic từ ALB.","Private subnets; IAM instance role; accepts traffic from ALB only."),c:L("Right-size instance, đặt min/max hợp lý, cân nhắc Spot/Savings Plans.","Right-size, sensible min/max, consider Spot/Savings Plans.")},
+  "RDS":{p:L("Cơ sở dữ liệu quan hệ managed.","Managed relational database."),w:L("Backup tự động, Multi-AZ, vá lỗi do AWS quản lý.","Automated backups, Multi-AZ, AWS-managed patching."),s:L("Private subnet, mã hoá at-rest, chỉ mở port DB cho Security Group của EC2.","Private subnet, encryption at rest, DB port open to EC2 SG only."),c:L("Chi phí lớn nhất thường là RDS — chọn instance class và Multi-AZ theo nhu cầu.","Often the largest cost — pick instance class and Multi-AZ by need.")},
+  "IAM":{p:L("Quản lý danh tính và quyền truy cập.","Identity and access management."),w:L("Role thay cho access key dài hạn.","Roles instead of long-lived keys."),s:L("Least privilege, MFA cho người dùng, không dùng root.","Least privilege, MFA for users, no root usage."),c:L("Miễn phí.","Free.")},
+  "CloudWatch":{p:L("Metric, log và alarm cho tài nguyên AWS.","Metrics, logs and alarms for AWS resources."),w:L("Có sẵn, không cần dựng thêm hệ thống.","Built in, no extra system to run."),s:L("Giới hạn quyền đọc log chứa dữ liệu nhạy cảm.","Restrict access to logs with sensitive data."),c:L("Đặt retention cho log group để tránh phình chi phí.","Set log retention to avoid runaway cost.")},
+  "AWS Budgets":{p:L("Cảnh báo khi chi phí vượt ngưỡng.","Alerts when spend crosses a threshold."),w:L("Phát hiện sớm dịch vụ tốn chi phí bất thường.","Catches unexpected spend early."),s:L("—","—"),c:L("Một số budget đầu miễn phí.","First budgets are free.")},
+  "Budgets":{p:L("Cảnh báo chi phí.","Cost alerts.")},
+  "S3":{p:L("Lưu trữ object: file tĩnh, backup, log.","Object storage: static files, backups, logs."),w:L("Bền vững cao, rẻ, tích hợp CloudFront.","Durable, cheap, integrates with CloudFront."),s:L("Block Public Access, mã hoá, bucket policy chặt.","Block Public Access, encryption, strict bucket policy."),c:L("Dùng lifecycle chuyển dữ liệu cũ sang lớp lưu trữ rẻ hơn.","Lifecycle rules move old data to cheaper tiers.")},
+  "Cognito":{p:L("Đăng nhập và quản lý người dùng.","User sign-in and management."),w:L("Không phải tự viết hệ thống xác thực.","No need to build auth from scratch."),s:L("Bật MFA, chính sách mật khẩu mạnh.","Enable MFA, strong password policy."),c:L("Tính theo người dùng hoạt động hàng tháng.","Billed per monthly active user.")},
+  "VPC":{p:L("Mạng riêng ảo chia public/private subnet.","Private network split into public/private subnets.")},
+  "NAT Gateway":{p:L("Cho EC2 private ra Internet (cập nhật, gọi API) mà không bị truy cập ngược.","Lets private EC2 reach the Internet without inbound exposure."),c:L("Tính theo giờ và GB — một trong những khoản dễ bị bỏ quên.","Billed per hour and GB — an easily forgotten cost.")},
+  "Developer":{p:L("Viết code và mở Pull Request.","Writes code and opens Pull Requests.")},
+  "Git":{p:L("Quản lý phiên bản mã nguồn.","Source version control.")},
+  "Git Push":{p:L("Đẩy commit lên remote, kích hoạt pipeline.","Pushes commits, triggering the pipeline.")},
+  "GitHub":{p:L("Lưu trữ mã nguồn, review qua Pull Request.","Hosts code; review via Pull Requests.")},
+  "GitHub Actions":{p:L("Chạy pipeline CI/CD theo sự kiện.","Runs CI/CD pipelines on events.")},
+  "CI":{p:L("Build, test, quét bảo mật mỗi lần thay đổi.","Build, test and scan on every change.")},
+  "CD":{p:L("Triển khai artifact đã qua kiểm tra lên môi trường đích.","Deploys verified artifacts to the target environment.")},
+  "CI/CD":{p:L("Tự động hoá build, test và triển khai.","Automates build, test and deploy.")},
+  "Build":{p:L("Biên dịch và đóng gói ứng dụng.","Compiles and packages the app.")},
+  "Unit Test":{p:L("Kiểm tra logic từng phần.","Verifies unit-level logic.")},
+  "Docker":{p:L("Đóng gói ứng dụng thành container.","Packages the app as a container.")},
+  "Docker Build":{p:L("Build image từ Dockerfile.","Builds the image from the Dockerfile.")},
+  "Security Scan":{p:L("Quét lỗ hổng trong code, dependency và image.","Scans code, dependencies and images for vulnerabilities.")},
+  "Container Registry":{p:L("Lưu image đã build (ECR / Docker Hub).","Stores built images (ECR / Docker Hub).")},
+  "Registry":{p:L("Lưu image (ECR / Docker Hub).","Stores images (ECR / Docker Hub).")},
+  "Deploy":{p:L("Đưa phiên bản mới lên môi trường chạy.","Rolls the new version out.")},
+  "Monitoring":{p:L("Theo dõi sức khoẻ sau triển khai.","Watches health after deployment.")},
+  "AWS":{p:L("Hạ tầng đích trên cloud.","Target cloud infrastructure.")},
+  "Kubernetes":{p:L("Điều phối container: tự phục hồi, mở rộng, rolling update.","Orchestrates containers: self-healing, scaling, rolling updates.")},
+  "Dockerfile":{p:L("Mô tả cách build image.","Describes how to build the image.")},
+  "Multi-stage Build":{p:L("Tách stage build và runtime để image nhỏ, ít lỗ hổng.","Separates build and runtime stages for smaller, safer images.")},
+  "Image":{p:L("Artifact bất biến, gắn tag theo commit SHA.","Immutable artifact tagged by commit SHA.")},
+  "Container":{p:L("Tiến trình chạy từ image, cô lập tài nguyên.","Process running from an image, resource-isolated.")},
+  "Docker Compose":{p:L("Chạy nhiều container cùng mạng cho môi trường local.","Runs multi-container setups locally on one network.")},
+  "Internet":{p:L("Traffic từ bên ngoài cluster.","Traffic from outside the cluster.")},
+  "Load Balancer":{p:L("Điểm vào cluster, phân phối traffic.","Cluster entry point distributing traffic.")},
+  "Ingress":{p:L("Định tuyến HTTP theo host/path tới Service.","Routes HTTP by host/path to Services.")},
+  "Service":{p:L("Địa chỉ ổn định cho nhóm Pod.","Stable address for a set of Pods.")},
+  "Frontend":{p:L("Pod giao diện người dùng.","User interface Pods.")},
+  "Backend API":{p:L("Pod xử lý nghiệp vụ, gọi database.","Business logic Pods calling the database.")},
+  "Database":{p:L("Lưu trữ dữ liệu (StatefulSet hoặc managed DB).","Data store (StatefulSet or managed DB).")},
+  "ConfigMap":{p:L("Cấu hình không nhạy cảm tách khỏi image.","Non-sensitive config outside the image.")},
+  "Secret":{p:L("Thông tin nhạy cảm (mật khẩu, token).","Sensitive values (passwords, tokens).")},
+  "HPA":{p:L("Tự scale số Pod theo CPU/memory hoặc metric.","Scales Pods on CPU/memory or custom metrics.")},
+  "Application":{p:L("Ứng dụng phát ra metric, log, trace.","The app emitting metrics, logs, traces.")},
+  "OpenTelemetry":{p:L("Chuẩn thu thập metric/trace/log trung lập nhà cung cấp.","Vendor-neutral collection of metrics/traces/logs.")},
+  "Prometheus":{p:L("Thu thập và lưu metric dạng time-series.","Scrapes and stores time-series metrics.")},
+  "Grafana":{p:L("Dashboard và cảnh báo trực quan.","Dashboards and visual alerting.")},
+  "Log Collector":{p:L("Thu gom log từ container/host (Filebeat, Fluent Bit).","Ships logs from containers/hosts (Filebeat, Fluent Bit).")},
+  "ELK":{p:L("Elasticsearch + Logstash + Kibana: lưu và tìm kiếm log.","Elasticsearch + Logstash + Kibana: store and search logs.")},
+  "Alerting":{p:L("Gửi cảnh báo khi vượt ngưỡng (Alertmanager, Grafana).","Sends alerts on thresholds (Alertmanager, Grafana).")},
+  "SAST":{p:L("Phân tích mã nguồn tĩnh tìm lỗi bảo mật.","Static analysis for security flaws.")},
+  "Dependency Scan":{p:L("Tìm thư viện có CVE đã biết.","Finds dependencies with known CVEs.")},
+  "Secret Scan":{p:L("Chặn commit lộ key, token, mật khẩu.","Blocks commits leaking keys, tokens, passwords.")},
+  "Container Scan":{p:L("Quét lỗ hổng trong image (Trivy).","Scans images for vulnerabilities (Trivy).")},
+};
+
+const LAB = [
+  { id:"aws", label:"AWS", i:"cloud", flow:["User","Route 53","CloudFront","AWS WAF","ALB","EC2 Auto Scaling","RDS"], side:["IAM","CloudWatch","AWS Budgets","S3","Cognito"] },
+  { id:"docker", label:"Docker", i:"container", flow:["Dockerfile","Multi-stage Build","Image","Container Registry","Container"], side:["Docker Compose"] },
+  { id:"k8s", label:"Kubernetes", i:"boxes", flow:["Internet","Load Balancer","Ingress","Service","Frontend","Backend API","Database"], side:["ConfigMap","Secret","HPA"] },
+  { id:"cicd", label:"CI/CD", i:"git-merge", flow:["GitHub","CI","Docker","Registry","CD","AWS","Monitoring"], side:[] },
+  { id:"mon", label:"Monitoring", i:"activity", flow:["Application","OpenTelemetry","Prometheus","Grafana"], side:["Log Collector","ELK","Alerting"] },
+  { id:"sec", label:"Security", i:"shield", flow:["Git Push","SAST","Dependency Scan","Secret Scan","Docker Build","Container Scan","Deploy"], side:["IAM","AWS WAF"] },
+];
+
+const PROJECTS = [
+  { n:"01", title:"Cloud-Based Office Management Platform", tags:["AWS","Terraform","GitHub Actions","WAF","RDS"],
+    problem:L("Ứng dụng văn phòng nội bộ cần chạy ổn định, an toàn, tự mở rộng theo tải, chi phí kiểm soát được và hạ tầng tái tạo được bằng code.",
+              "An internal office app must be reliable, secure, scale with load, keep costs under control, and have infrastructure reproducible from code."),
+    flow:["User","Route 53","CloudFront","AWS WAF","Application Load Balancer","EC2 Auto Scaling","RDS"],
+    side:["VPC","IAM","NAT Gateway","Cognito","CloudWatch","AWS Budgets"],
+    tree:`VPC
+├── Public Subnet
+│   ├── ALB
+│   └── NAT Gateway
+│
+└── Private Subnet
+    ├── EC2 (Auto Scaling Group)
+    └── RDS`,
+    tech:["AWS","Terraform","GitHub Actions","Route 53","CloudFront","WAF","ALB","EC2","RDS","Cognito","CloudWatch"],
+    infra:L("Toàn bộ hạ tầng mô tả bằng Terraform (module VPC, ALB, ASG, RDS); state lưu ở remote backend.","All infrastructure in Terraform (VPC, ALB, ASG, RDS modules) with a remote state backend."),
+    cicd:L("GitHub Actions: terraform fmt / validate / plan ở Pull Request, apply sau khi review; build và triển khai ứng dụng lên Auto Scaling Group.","GitHub Actions: terraform fmt / validate / plan on Pull Requests, apply after review; build and deploy the app to the Auto Scaling Group."),
+    security:L("WAF ở biên; EC2 và RDS trong private subnet; Security Group theo chuỗi ALB → EC2 → RDS; IAM least privilege; Cognito xác thực người dùng.","WAF at the edge; EC2 and RDS in private subnets; Security Groups chained ALB → EC2 → RDS; least-privilege IAM; Cognito for sign-in."),
+    monitoring:L("CloudWatch metric, log và alarm cho ALB / EC2 / RDS; AWS Budgets cảnh báo chi phí.","CloudWatch metrics, logs and alarms for ALB / EC2 / RDS; AWS Budgets for cost alerts."),
+    solution:L("Tách tầng public/private, mở rộng ngang bằng Auto Scaling, CDN + WAF ở biên, hạ tầng tái tạo bằng Terraform.","Public/private tiering, horizontal scaling with Auto Scaling, CDN + WAF at the edge, infrastructure reproducible with Terraform.") },
+
+  { n:"02", title:"Automated CI/CD Pipeline", tags:["GitHub Actions","Docker","Trivy","ECR"],
+    problem:L("Triển khai thủ công chậm, dễ sai, khó truy vết. Cần pipeline tự động từ commit đến production, có kiểm thử và quét bảo mật trước khi deploy.",
+              "Manual deployments are slow, error-prone and hard to trace. Need an automated commit-to-production pipeline with tests and security scans before deploy."),
+    flow:["Developer","Git Push","GitHub","GitHub Actions","Build","Unit Test","Docker Build","Security Scan","Container Registry","Deploy","Monitoring"], side:[],
+    tech:["Git","GitHub","GitHub Actions","Docker","Docker Hub / ECR","Terraform","AWS","Trivy"],
+    infra:L("Runner GitHub-hosted; image lưu ở ECR hoặc Docker Hub; môi trường đích trên AWS dựng bằng Terraform.","GitHub-hosted runners; images in ECR or Docker Hub; AWS target environment built with Terraform."),
+    cicd:L("Chạy khi push / Pull Request; chỉ deploy khi build, test và scan đều pass; image gắn tag commit SHA để rollback.","Runs on push / Pull Request; deploys only if build, tests and scans pass; images tagged by commit SHA for rollback."),
+    security:L("Trivy chặn image có lỗ hổng CRITICAL/HIGH; dùng GitHub Secrets / OIDC thay cho access key dài hạn.","Trivy blocks images with CRITICAL/HIGH vulnerabilities; GitHub Secrets / OIDC instead of long-lived keys."),
+    monitoring:L("Health check sau deploy; theo dõi trạng thái và thời gian chạy pipeline.","Post-deploy health checks; pipeline status and duration tracking."),
+    solution:L("Pipeline nhiều stage có quality gate, image bất biến gắn tag SHA, deploy kèm health check.","Multi-stage pipeline with quality gates, immutable SHA-tagged images, health-checked deploys.") },
+
+  { n:"03", title:"Containerized Application Platform", tags:["Kubernetes","Helm","Docker","HPA"],
+    problem:L("Ứng dụng nhiều thành phần cần triển khai nhất quán, tự phục hồi khi lỗi và tự mở rộng theo tải.",
+              "A multi-component app needs consistent deployment, self-healing and automatic scaling."),
+    flow:["Internet","Load Balancer","Ingress","Frontend","Backend API","Database"], side:["ConfigMap","Secret","HPA"],
+    tree:`Internet
+   │
+Load Balancer
+   │
+Kubernetes
+├── Ingress
+├── Frontend      (Deployment + Service)
+├── Backend API   (Deployment + Service + HPA)
+└── Database      (StatefulSet / managed DB)`,
+    tech:["Docker","Kubernetes","Helm","Ingress","ConfigMap","Secret","Deployment","Service","HPA"],
+    infra:L("Mỗi thành phần đóng gói thành Helm chart; cấu hình qua ConfigMap, thông tin nhạy cảm qua Secret.","Each component packaged as a Helm chart; config via ConfigMap, sensitive values via Secret."),
+    cicd:L("Pipeline build image, cập nhật tag trong values của Helm và chạy helm upgrade với rolling update.","Pipeline builds the image, bumps the Helm values tag and runs helm upgrade with rolling updates."),
+    security:L("Pod chạy non-root, resource limits, Secret không commit vào Git, NetworkPolicy giữa các tầng.","Non-root pods, resource limits, no Secrets in Git, NetworkPolicy between tiers."),
+    monitoring:L("Readiness / liveness probe; metric Pod qua Prometheus.","Readiness / liveness probes; Pod metrics via Prometheus."),
+    solution:L("Tách frontend / backend / database, scale backend bằng HPA, triển khai lặp lại được bằng Helm.","Split frontend / backend / database, scale backend with HPA, repeatable deploys with Helm."),
+    issues:[
+      ["CrashLoopBackOff","kubectl logs <pod> --previous", L("Container khởi động rồi thoát liên tục — xem log lần chạy trước, kiểm tra biến môi trường và lệnh khởi động.","Container keeps exiting — check previous logs, env vars and start command.")],
+      ["ImagePullBackOff","kubectl describe pod <pod>", L("Sai tên/tag image hoặc thiếu imagePullSecret.","Wrong image name/tag or missing imagePullSecret.")],
+      ["Pending Pod","kubectl get events --sort-by=.lastTimestamp", L("Không đủ tài nguyên node, PVC chưa bound hoặc nodeSelector không khớp.","Insufficient node resources, unbound PVC or mismatched nodeSelector.")],
+      ["OOMKilled","kubectl describe pod <pod> | grep -i oom", L("Vượt memory limit — kiểm tra rò rỉ bộ nhớ hoặc điều chỉnh limit.","Exceeded memory limit — check leaks or adjust limits.")],
+      ["Service unavailable","kubectl get endpoints <svc>", L("Selector không khớp label Pod hoặc readiness probe fail nên không có endpoint.","Selector doesn't match Pod labels or readiness fails, so no endpoints.")],
+    ] },
+
+  { n:"04", title:"DevOps Observability Stack", tags:["OpenTelemetry","Prometheus","Grafana","ELK"],
+    problem:L("Không thể vận hành thứ không đo được: cần thấy sức khoẻ hệ thống, tìm nguyên nhân lỗi nhanh và được cảnh báo trước người dùng.",
+              "You can't operate what you can't see: need system health visibility, fast root-cause search and alerts before users notice."),
+    flow:["Application","OpenTelemetry","Prometheus","Grafana"], logs:["Application","Log Collector","ELK"], side:["Alerting"],
+    tech:["OpenTelemetry","Prometheus","Grafana","ELK","Alertmanager"],
+    infra:L("Stack chạy bằng Docker Compose cho môi trường lab; có thể chuyển sang Helm chart trên Kubernetes.","Runs on Docker Compose for the lab; portable to Helm charts on Kubernetes."),
+    cicd:L("Cấu hình dashboard và alert rule lưu trong Git, triển khai cùng pipeline.","Dashboards and alert rules stored in Git and shipped through the pipeline."),
+    security:L("Grafana bật xác thực; không để Prometheus / Elasticsearch public.","Grafana auth enabled; Prometheus / Elasticsearch never public."),
+    monitoring:L("Bao phủ Monitoring, Logging, Tracing và Alerting.","Covers Monitoring, Logging, Tracing and Alerting."),
+    solution:L("Ba trụ cột metric / log / trace qua OpenTelemetry, dashboard Grafana, cảnh báo theo ngưỡng.","Metrics / logs / traces via OpenTelemetry, Grafana dashboards, threshold alerts."),
+    dash:["CPU","Memory","Disk","Network","Request Rate","Error Rate","Response Time","Container Status"] },
+
+  { n:"05", title:"DevSecOps Pipeline", tags:["Trivy","Secret scanning","IAM","WAF"],
+    problem:L("Lỗ hổng phát hiện muộn ở production tốn kém hơn nhiều so với chặn ngay từ commit. Cần đưa kiểm tra bảo mật vào từng bước của pipeline.",
+              "Vulnerabilities found in production cost far more than those blocked at commit. Security checks need to live in every pipeline stage."),
+    flow:["Git Push","SAST","Dependency Scan","Secret Scan","Docker Build","Container Scan","Deploy"], side:["IAM","AWS WAF"],
+    tech:["Trivy","GitHub Advanced Security (concepts)","Dependabot (concepts)","Secret scanning","IAM","AWS WAF"],
+    infra:L("Các bước quét chạy trong GitHub Actions trước khi build và trước khi deploy.","Scans run in GitHub Actions before build and before deploy."),
+    cicd:L("Quality gate: fail pipeline khi có secret lộ hoặc lỗ hổng CRITICAL.","Quality gate: fail the pipeline on leaked secrets or CRITICAL vulnerabilities."),
+    security:L("Shift-left: SAST, dependency scan, secret scan, container scan; runtime bảo vệ bằng IAM least privilege và WAF.","Shift-left: SAST, dependency, secret and container scans; runtime protected by least-privilege IAM and WAF."),
+    monitoring:L("Báo cáo kết quả quét lưu dạng artifact của pipeline.","Scan reports stored as pipeline artifacts."),
+    solution:L("Mỗi lớp kiểm tra chặn một loại rủi ro khác nhau, càng sớm càng rẻ.","Each layer blocks a different risk class; the earlier, the cheaper.") },
+];
+
+const STAGES = [
+  { t:"Source", tool:"Git · GitHub", p:L("Checkout mã nguồn tại commit được push.","Checks out the pushed commit."), cmd:"actions/checkout@v4", pass:L("Checkout thành công.","Checkout succeeds.") },
+  { t:"Build", tool:".NET / Node / Python", p:L("Cài dependency và build ứng dụng.","Installs dependencies and builds the app."), cmd:"dotnet build -c Release", pass:L("Build không lỗi.","Build has no errors.") },
+  { t:"Test", tool:"xUnit / Jest / pytest", p:L("Chạy unit test.","Runs unit tests."), cmd:"dotnet test --no-build", pass:L("Toàn bộ test pass.","All tests pass.") },
+  { t:"Security Scan", tool:"Trivy · secret scanning", p:L("Quét dependency, IaC và secret.","Scans dependencies, IaC and secrets."), cmd:"trivy fs --severity HIGH,CRITICAL --exit-code 1 .", pass:L("Không có lỗ hổng HIGH/CRITICAL, không lộ secret.","No HIGH/CRITICAL findings, no leaked secrets.") },
+  { t:"Docker Build", tool:"Docker (multi-stage)", p:L("Build image runtime tối giản.","Builds a minimal runtime image."), cmd:"docker build -t app:${GITHUB_SHA} .", pass:L("Image build thành công.","Image builds successfully.") },
+  { t:"Push", tool:"Amazon ECR / Docker Hub", p:L("Đẩy image gắn tag commit SHA.","Pushes the SHA-tagged image."), cmd:"docker push <registry>/app:${GITHUB_SHA}", pass:L("Image có trong registry.","Image is in the registry.") },
+  { t:"Deploy", tool:"AWS · Kubernetes", p:L("Triển khai phiên bản mới bằng rolling update.","Rolls out the new version."), cmd:"helm upgrade --install app ./chart --set image.tag=${GITHUB_SHA}", pass:L("Rollout hoàn tất.","Rollout completes.") },
+  { t:"Verify", tool:"curl · smoke test", p:L("Kiểm tra endpoint /health sau deploy.","Checks /health after deploy."), cmd:"curl -fsS https://<domain>/health", pass:L("HTTP 200; nếu fail thì rollback.","HTTP 200; rollback on failure.") },
+  { t:"Monitor", tool:"Prometheus · Grafana · CloudWatch", p:L("Theo dõi error rate và latency sau phát hành.","Watches error rate and latency after release."), cmd:"# alert: error_rate > threshold", pass:L("Không có alert bất thường.","No abnormal alerts.") },
+];
+
+const INCIDENTS = [
+  { id:"#001", title:L("API trả về HTTP 502","API returns HTTP 502"), sev:"P1",
+    path:["Client","ALB","Target Group","EC2","Nginx","Application"],
+    checks:[
+      [L("ALB health check","ALB health check"),"aws elbv2 describe-target-health --target-group-arn <arn>"],
+      ["Security Group","aws ec2 describe-security-groups --group-ids <sg-id>"],
+      [L("Trạng thái Nginx","Nginx status"),"sudo systemctl status nginx && sudo nginx -t"],
+      [L("Tiến trình ứng dụng","Application process"),"sudo systemctl status <app> ; ps aux | grep <app>"],
+      ["Port","sudo ss -tlnp | grep <port>"],
+      ["Logs","sudo tail -n 100 /var/log/nginx/error.log ; journalctl -u <app> -n 100"],
+      ["CPU / Memory","top -o %CPU ; free -m"],
+    ] },
+  { id:"#002", title:L("Pod rơi vào CrashLoopBackOff","Pod stuck in CrashLoopBackOff"), sev:"P2",
+    path:["kubectl get pods","describe pod","logs","events"],
+    checks:[
+      [L("Trạng thái Pod","Pod status"),"kubectl get pods -n <ns>"],
+      [L("Chi tiết & exit code","Details & exit code"),"kubectl describe pod <pod> -n <ns>"],
+      [L("Log lần chạy trước","Previous logs"),"kubectl logs <pod> -n <ns> --previous"],
+      [L("Sự kiện","Events"),"kubectl get events -n <ns> --sort-by=.lastTimestamp"],
+    ] },
+  { id:"#003", title:L("Pod bị OOMKilled","Pod OOMKilled"), sev:"P2",
+    path:["Pod","Container","Memory limit","Node"],
+    checks:[
+      [L("Lý do kết thúc","Termination reason"),"kubectl get pod <pod> -o jsonpath='{.status.containerStatuses[0].lastState}'"],
+      [L("Mức dùng hiện tại","Current usage"),"kubectl top pod <pod> -n <ns>"],
+      [L("Limit đang đặt","Configured limits"),"kubectl get pod <pod> -o yaml | grep -A3 resources"],
+    ] },
+];
+
+const NOTES = [
+  { t:"AWS", i:"cloud", items:["VPC Design","EC2","ALB","Auto Scaling","RDS","CloudFront","IAM","Cost Optimization"] },
+  { t:"Docker", i:"container", items:["Dockerfile optimization","Multi-stage build","Docker networking","Docker Compose"] },
+  { t:"Kubernetes", i:"boxes", items:["Deployment","Service","Ingress","ConfigMap","Secret","HPA","Troubleshooting"] },
+  { t:"CI/CD", i:"git-merge", items:["GitHub Actions","GitLab CI","Pipeline design","Deployment strategies"] },
+  { t:"Terraform", i:"file-code-2", items:["Modules","State","Remote Backend","Variables","Outputs"] },
+  { t:"Linux", i:"terminal", items:["Process management","Networking","Systemd","Logs","Permissions"] },
+];
+
+const EDUCATION = { school:"HUTECH University", time:"12/2022 — 2026", major:L("An toàn thông tin","Information Security") };
+const ACADEMIC = L("Dự án học thuật về tự động hoá mạng (SDN), hệ thống phân tán, phát hiện xâm nhập và quản trị hạ tầng AWS.",
+                   "Academic projects in network automation (SDN), distributed systems, intrusion detection and AWS infrastructure management.");
+
+/* =====================================================================
+   RENDERING — không cần sửa phần dưới / no edits needed below
+   ===================================================================== */
+let lang = "vi";
+try { const s = localStorage.getItem("lang"); if (s === "vi" || s === "en") lang = s; } catch(e){}
+const tr = o => o == null ? "" : (typeof o === "string" ? o : (o[lang] ?? o.en));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = id => document.getElementById(id);
+const icons = () => { if (window.lucide) window.lucide.createIcons(); };
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function flow(nodes, interactive, row){
+  return `<div class="flow${row ? " row" : ""}">` + nodes.map((n, i) =>
+    (i ? `<span class="conn" style="--d:${(i * .22).toFixed(2)}s" aria-hidden="true"></span>` : "") +
+    (interactive ? `<button type="button" class="node" data-node="${esc(n)}">${esc(n)}</button>` : `<span class="node" title="${esc(tr(NODE[n]?.p))}">${esc(n)}</span>`)
+  ).join("") + `</div>`;
+}
+function sideChips(list, interactive){
+  if (!list || !list.length) return "";
+  return `<div class="side"><span class="lbl">${lang === "vi" ? "Dịch vụ đi kèm" : "Supporting services"}</span>` +
+    list.map(n => interactive ? `<button type="button" class="chip" data-node="${esc(n)}">${esc(n)}</button>` : `<span class="chip" title="${esc(tr(NODE[n]?.p))}">${esc(n)}</span>`).join("") + `</div>`;
+}
+
+function renderStatic(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(el => el.textContent = tr(UI[el.dataset.t]));
+  $("langBtn").innerHTML = `<i data-lucide="languages"></i>${lang === "vi" ? "EN" : "VI"}`;
+  $("foot").textContent = `© 2026 ${tr(CONFIG.name)}`;
+}
+
+function renderHero(){
+  $("heroName").textContent = tr(CONFIG.name) + " — " + CONFIG.position;
+  const f = [
+    [L("Vị trí ứng tuyển","Target role"), CONFIG.position],
+    [L("Kinh nghiệm","Experience"), tr(CONFIG.experience)],
+    [L("Khu vực","Location"), tr(CONFIG.location)],
+    [L("Đang tập trung","Current focus"), CONFIG.focus],
+  ];
+  $("facts").innerHTML = f.map(([k, v]) => `<div class="card"><dt>${tr(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
+  const cv = CONFIG.cvUrl ? `href="${esc(CONFIG.cvUrl)}" target="_blank" rel="noopener"` : `href="#/resume"`;
+  const gh = CONFIG.github ? `href="https://github.com/${esc(CONFIG.github)}" target="_blank" rel="noopener"` : `href="#github"`;
+  $("heroCta").innerHTML = `
+    <a class="btn primary" href="#projects"><i data-lucide="layers"></i>${lang === "vi" ? "Xem dự án" : "View Projects"}</a>
+    <a class="btn" ${cv}><i data-lucide="download"></i>${lang === "vi" ? "Tải CV" : "Download CV"}</a>
+    <a class="btn" ${gh}><i data-lucide="github"></i>GitHub</a>
+    <a class="btn" href="#contact"><i data-lucide="mail"></i>${lang === "vi" ? "Liên hệ" : "Contact Me"}</a>`;
+  $("heroFlow").innerHTML = flow(["Developer","Git","CI/CD","Docker","Kubernetes","AWS"], false, true);
+}
+
+function renderAbout(){
+  const p = lang === "vi" ? [
+    "Mình xây dựng và tự động hoá hạ tầng cloud, pipeline triển khai và ứng dụng container, với trọng tâm là độ tin cậy, khả năng quan sát và hiệu quả vận hành.",
+    "Nguyên tắc làm việc: hạ tầng được mô tả bằng code, mọi thay đổi đi qua pipeline có kiểm thử và quét bảo mật, và mọi dịch vụ có metric, log, cảnh báo trước khi lên production.",
+    `Học vấn: ${tr(EDUCATION.major)} tại ${EDUCATION.school}. ${tr(ACADEMIC)}`
+  ] : [
+    "I build and automate cloud infrastructure, deployment pipelines, and containerized applications with a focus on reliability, observability, and operational efficiency.",
+    "How I work: infrastructure is described as code, every change goes through a tested and security-scanned pipeline, and every service ships with metrics, logs and alerts before production.",
+    `Education: ${tr(EDUCATION.major)} at ${EDUCATION.school}. ${tr(ACADEMIC)}`
+  ];
+  $("aboutText").innerHTML = p.map(x => `<p>${esc(x)}</p>`).join("");
+  $("pillars").innerHTML = PILLARS.map(x => `<li class="card"><i data-lucide="${x.i}"></i><div><b>${x.t}</b><span>${esc(tr(x.d))}</span></div></li>`).join("");
+}
+
+function renderSkills(){
+  $("legend").innerHTML = ["wk","pr","adv"].map(k => `<span><span class="lv ${k}">${{wk:"Working Knowledge",pr:"Production Ready",adv:"Advanced"}[k]}</span> ${esc(tr(LEVELS[k]).split("—")[1] || "")}</span>`).join("") + `<span>${TODO_LV}</span>`;
+  const name = { wk:"Working Knowledge", pr:"Production Ready", adv:"Advanced" };
+  $("skillgrid").innerHTML = SKILLS.map(g => `<div class="card"><h3><i data-lucide="${g.i}"></i>${esc(g.g)}</h3><ul>` +
+    g.items.map(([n, lv]) => `<li><span>${esc(n)}</span>${lv === "todo" ? TODO_LV : `<span class="lv ${lv}">${name[lv]}</span>`}</li>`).join("") + `</ul></div>`).join("");
+}
+
+function renderProjects(){
+  $("pgrid").innerHTML = PROJECTS.map((p, i) => `
+    <article class="pcard card">
+      <div class="top"><span class="num">PROJECT ${p.n}</span><span class="badge">Case study</span></div>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(tr(p.problem))}</p>
+      <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
+      <button class="btn" type="button" data-proj="${i}"><i data-lucide="panel-top-open"></i>${lang === "vi" ? "Xem case study" : "Open case study"}</button>
+    </article>`).join("");
+}
+
+function openProject(i){
+  const p = PROJECTS[i], V = lang === "vi";
+  const block = (h, body) => `<div class="card"><h4>${h}</h4><p>${body}</p></div>`;
+  let extra = "";
+  if (p.tree) extra += `<div><h4>${V ? "Hạ tầng / cấu trúc" : "Infrastructure layout"}</h4><pre class="tree">${esc(p.tree)}</pre></div>`;
+  if (p.logs) extra += `<div><h4>Logs</h4>${flow(p.logs)}</div>`;
+  if (p.dash) extra += `<div><h4>${V ? "Dashboard (mockup — chưa có số liệu thật)" : "Dashboard (mockup — no real data yet)"}</h4><div class="dash">` +
+    p.dash.map(m => `<div><small>${esc(m)}</small><b>—</b><svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 L100 20" stroke="currentColor" stroke-dasharray="3 4" opacity=".35" fill="none"/></svg></div>`).join("") + `</div></div>`;
+  if (p.issues) extra += `<div><h4>Kubernetes Troubleshooting</h4><div class="issues">` +
+    p.issues.map(([n, c, d]) => `<div><b>${esc(n)}</b><span>${esc(tr(d))}<br><code>${esc(c)}</code></span></div>`).join("") + `</div></div>`;
+  const link = (u, label) => u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${label}</a>` : TODO;
+  $("dlgContent").innerHTML = `
+    <div class="dlg-head">
+      <div><span class="num mono" style="color:var(--accent);font-size:.8rem">PROJECT ${p.n}</span><h3 id="dlgTitle">${esc(p.title)}</h3></div>
+      <button class="ibtn" type="button" id="dlgClose" aria-label="Close"><i data-lucide="x"></i></button>
+    </div>
+    <div class="dlg-body">
+      <div><h4>Problem</h4><p>${esc(tr(p.problem))}</p></div>
+      <div><h4>Architecture Diagram</h4>${flow(p.flow)}${sideChips(p.side)}</div>
+      ${extra}
+      <div><h4>Technologies</h4><div class="tags">${p.tech.map(t => `<span>${esc(t)}</span>`).join("")}</div></div>
+      <div class="kv">
+        ${block("Infrastructure", esc(tr(p.infra)))}
+        ${block("CI/CD", esc(tr(p.cicd)))}
+        ${block("Security", esc(tr(p.security)))}
+        ${block("Monitoring", esc(tr(p.monitoring)))}
+        ${block("Solution", esc(tr(p.solution)))}
+        ${block("Responsibilities", TODO)}
+        ${block("Challenges", TODO)}
+        ${block("Result", TODO)}
+        ${block("GitHub", link(p.github, "Repository"))}
+        ${block("Demo", link(p.demo, "Live demo"))}
+      </div>
+    </div>`;
+  icons();
+  const d = $("pdlg"); d.showModal();
+  $("dlgClose").onclick = () => d.close();
+}
+
+let labTab = "aws", labNode = null;
+function renderLab(){
+  $("labTabs").innerHTML = LAB.map(t => `<button class="tab" role="tab" type="button" aria-selected="${t.id === labTab}" data-tab="${t.id}"><i data-lucide="${t.i}"></i>${t.label}</button>`).join("");
+  const t = LAB.find(x => x.id === labTab);
+  if (!labNode || ![...t.flow, ...t.side].includes(labNode)) labNode = t.flow[0];
+  $("labBox").innerHTML = `<p class="hint">${lang === "vi" ? "Bấm vào thành phần để xem chi tiết" : "Click a component for details"}</p>${flow(t.flow, true)}${sideChips(t.side, true)}<div class="info" id="nodeInfo"></div>`;
+  $("labBox").querySelectorAll("[data-node]").forEach(b => b.classList.toggle("sel", b.dataset.node === labNode));
+  const n = NODE[labNode] || {};
+  const row = (k, v) => v ? `<div><dt>${k}</dt><dd>${esc(tr(v))}</dd></div>` : "";
+  $("nodeInfo").innerHTML = `<h4>${esc(labNode)}</h4>` +
+    row(lang === "vi" ? "Vai trò" : "Purpose", n.p) + row(lang === "vi" ? "Vì sao dùng" : "Why used", n.w) +
+    row(lang === "vi" ? "Bảo mật" : "Security", n.s) + row(lang === "vi" ? "Chi phí" : "Cost consideration", n.c);
+}
+
+let stageState = STAGES.map(() => "idle"), stageSel = 0, runTimer = null;
+function renderPipe(){
+  const lab = { idle:L("Chưa chạy","Not run"), running:L("Đang chạy…","Running…"), passed:L("Đạt (mô phỏng)","Passed (simulated)") };
+  $("pipe").innerHTML = STAGES.map((s, i) => `<button type="button" class="stage${i === stageSel ? " sel" : ""}" data-s="${stageState[i]}" data-stage="${i}">
+    <span class="n">${i + 1}</span><b>${esc(s.t)}</b><span class="st">${tr(lab[stageState[i]])}</span></button>`).join("");
+  const s = STAGES[stageSel], V = lang === "vi";
+  $("stageInfo").innerHTML = `<h4>${stageSel + 1}. ${esc(s.t)}</h4>
+    <div><dt>Status</dt><dd>${tr(lab[stageState[stageSel]])}</dd></div>
+    <div><dt>Duration</dt><dd>${V ? "— (đo khi chạy pipeline thật)" : "— (measured on a real run)"}</dd></div>
+    <div><dt>Tool</dt><dd>${esc(s.tool)}</dd></div>
+    <div><dt>${V ? "Mục đích" : "Purpose"}</dt><dd>${esc(tr(s.p))}</dd></div>
+    <div><dt>${V ? "Điều kiện pass (Result)" : "Pass condition (Result)"}</dt><dd>${esc(tr(s.pass))}</dd></div>
+    <div style="grid-column:1/-1"><dt>${V ? "Lệnh ví dụ" : "Example command"}</dt><dd><pre class="cmd">${esc(s.cmd)}</pre></dd></div>`;
+}
+function runPipe(){
+  clearTimeout(runTimer); stageState = STAGES.map(() => "idle");
+  let i = 0;
+  const step = () => {
+    if (i > 0) stageState[i - 1] = "passed";
+    if (i < STAGES.length){ stageState[i] = "running"; stageSel = i; renderPipe(); i++; runTimer = setTimeout(step, reduce ? 0 : 650); }
+    else renderPipe();
+  };
+  step();
+}
+
+function renderIncidents(){
+  const V = lang === "vi";
+  $("incidents").innerHTML = INCIDENTS.map(x => `
+    <details class="inc card">
+      <summary><span class="id">Incident ${x.id}</span><b>${esc(tr(x.title))}</b><span class="badge">${x.sev}</span><i data-lucide="chevron-down" class="chev"></i></summary>
+      <div class="inc-body">
+        <div><h4>Investigation</h4>${flow(x.path)}</div>
+        <div><h4>Checklist</h4><ul class="check">${x.checks.map(([k, c]) => `<li><span>${esc(tr(k))}</span><code>${esc(c)}</code></li>`).join("")}</ul></div>
+        <div class="kv">
+          <div class="card"><h4>Root Cause</h4><p><span class="todo">[TODO — REAL INCIDENT OR LAB RESULT]</span></p></div>
+          <div class="card"><h4>Resolution</h4><p><span class="todo">[TODO]</span></p></div>
+        </div>
+      </div>
+    </details>`).join("");
+}
+
+function renderNotes(){
+  $("notesGrid").innerHTML = NOTES.map(n => `<div class="card"><h3><span><i data-lucide="${n.i}"></i> ${n.t}</span><span class="badge">${lang === "vi" ? "Sắp ra mắt" : "Coming soon"}</span></h3><ul>${n.items.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+}
+
+let ghCache = null;
+function renderGitHub(){
+  const box = $("ghBox"), V = lang === "vi";
+  const fallback = msg => `<div class="ghempty card"><p>${msg}</p>${CONFIG.github ? `<a href="https://github.com/${esc(CONFIG.github)}" target="_blank" rel="noopener">github.com/${esc(CONFIG.github)}</a>` : TODO}</div>`;
+  if (!CONFIG.github){ box.innerHTML = fallback(V ? "Chưa cấu hình username GitHub (CONFIG.github)." : "GitHub username not configured (CONFIG.github)."); return; }
+  if (ghCache){ box.innerHTML = ghCache; return; }
+  box.innerHTML = fallback(V ? "Đang tải repository…" : "Loading repositories…");
+  fetch(`https://api.github.com/users/${encodeURIComponent(CONFIG.github)}/repos?sort=updated&per_page=6`)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(list => {
+      ghCache = `<div class="repos">` + list.filter(r => !r.fork).map(r => `<div class="repo card">
+        <a href="${esc(r.html_url)}" target="_blank" rel="noopener">${esc(r.name)}</a>
+        <p>${esc(r.description || "")}</p>
+        <div class="tags">${(r.topics || []).slice(0, 4).map(t => `<span>${esc(t)}</span>`).join("")}</div>
+        <div class="meta"><span>${esc(r.language || "—")}</span><span>★ ${r.stargazers_count}</span><span>${new Date(r.updated_at).toLocaleDateString(lang === "vi" ? "vi-VN" : "en-US")}</span></div>
+      </div>`).join("") + `</div>`;
+      box.innerHTML = ghCache;
+    })
+    .catch(() => { box.innerHTML = fallback(V ? "Không tải được dữ liệu GitHub lúc này." : "Couldn't load GitHub data right now."); });
+}
+
+function renderContact(){
+  const V = lang === "vi";
+  const items = [
+    ["mail","Email", `<a href="mailto:${esc(CONFIG.email)}">${esc(CONFIG.email)}</a>`],
+    ["github","GitHub", CONFIG.github ? `<a href="https://github.com/${esc(CONFIG.github)}" target="_blank" rel="noopener">github.com/${esc(CONFIG.github)}</a>` : TODO],
+    ["linkedin","LinkedIn", `<a href="${esc(CONFIG.linkedin)}" target="_blank" rel="noopener">${V ? "Hồ sơ LinkedIn" : "LinkedIn profile"}</a>`],
+    ["map-pin", V ? "Khu vực" : "Location", esc(tr(CONFIG.location))],
+  ];
+  $("clist").innerHTML = items.map(([i, k, v]) => `<li class="card"><i data-lucide="${i}"></i><div><small>${k}</small>${v}</div></li>`).join("");
+}
+
+function renderResume(){
+  const V = lang === "vi";
+  const skills = SKILLS.map(g => `<div class="row2"><b>${esc(g.g)}</b><span>${g.items.map(x => esc(x[0])).join(", ")}</span></div>`).join("");
+  $("rv").innerHTML = `
+    <div class="rv-top">
+      <div><h1>${esc(tr(CONFIG.name))}</h1><div class="role">${esc(CONFIG.position)}</div>
+        <div class="contacts">${esc(CONFIG.email)} · LinkedIn · ${esc(tr(CONFIG.location))}${CONFIG.github ? " · github.com/" + esc(CONFIG.github) : ""}</div></div>
+      <div class="rv-actions">
+        <button class="btn primary" type="button" id="printBtn"><i data-lucide="download"></i>Download PDF</button>
+        <a class="btn" href="#top"><i data-lucide="arrow-left"></i>${V ? "Về trang chính" : "Back"}</a>
+      </div>
+    </div>
+    <h2>SUMMARY</h2>
+    <p>${V ? "Kỹ sư DevOps / Cloud tập trung vào tự động hoá hạ tầng, pipeline CI/CD và hệ thống cloud tin cậy, an toàn, tối ưu chi phí."
+             : "DevOps / Cloud engineer focused on infrastructure automation, CI/CD pipelines and reliable, secure, cost-efficient cloud systems."}</p>
+    <h2>CAREER OBJECTIVE</h2>
+    <p>${V ? "Ứng tuyển vị trí DevOps Engineer / Cloud Engineer, đóng góp vào vận hành nền tảng an toàn, mở rộng được và sẵn sàng cao."
+             : "DevOps Engineer / Cloud Engineer role, contributing to secure, scalable and highly available platforms."}</p>
+    <h2>TECHNICAL SKILLS</h2>${skills}
+    <h2>EXPERIENCE</h2><p>${TODO}</p>
+    <h2>PROJECTS</h2>
+    <ul>${PROJECTS.map(p => `<li><b>${esc(p.title)}</b> — ${esc(p.tags.join(", "))}</li>`).join("")}<li>${esc(tr(ACADEMIC))}</li></ul>
+    <h2>EDUCATION</h2>
+    <div class="row2"><b>${EDUCATION.time}</b><span>${EDUCATION.school} — ${esc(tr(EDUCATION.major))}</span></div>
+    <h2>CERTIFICATIONS</h2><ul><li>CEFR B1 English (≈ IELTS 4.0 – 5.0)</li><li>${TODO}</li></ul>
+    <h2>LANGUAGES</h2><p>${V ? "Tiếng Việt (bản ngữ), Tiếng Anh (B1)" : "Vietnamese (native), English (B1)"}</p>`;
+  $("printBtn").onclick = () => window.print();
+}
+
+function renderAll(){
+  renderStatic(); renderHero(); renderAbout(); renderSkills(); renderProjects(); renderLab(); renderPipe();
+  renderIncidents(); renderNotes(); renderGitHub(); renderContact(); renderResume(); icons();
+}
+
+/* routing: #/resume */
+function route(){
+  const r = location.hash.startsWith("#/resume");
+  document.querySelector("main").hidden = r;
+  $("resume").hidden = !r;
+  if (r) window.scrollTo(0, 0);
+}
+
+/* events */
+document.addEventListener("click", e => {
+  const p = e.target.closest("[data-proj]"); if (p){ openProject(+p.dataset.proj); return; }
+  const tab = e.target.closest("[data-tab]"); if (tab){ labTab = tab.dataset.tab; labNode = null; renderLab(); icons(); return; }
+  const node = e.target.closest("#labBox [data-node]"); if (node){ labNode = node.dataset.node; renderLab(); icons(); return; }
+  const st = e.target.closest("[data-stage]"); if (st){ stageSel = +st.dataset.stage; renderPipe(); return; }
+  if (e.target.closest("#menu a")){ $("menu").classList.remove("open"); $("menuBtn").setAttribute("aria-expanded", "false"); }
+});
+$("pdlg").addEventListener("click", e => { if (e.target === $("pdlg")) $("pdlg").close(); });
+$("runPipe").onclick = runPipe;
+$("resetPipe").onclick = () => { clearTimeout(runTimer); stageState = STAGES.map(() => "idle"); stageSel = 0; renderPipe(); };
+$("langBtn").onclick = () => { lang = lang === "vi" ? "en" : "vi"; try{ localStorage.setItem("lang", lang); }catch(e){} ghCache = null; renderAll(); };
+$("themeBtn").onclick = () => {
+  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.documentElement.dataset.theme = next; try{ localStorage.setItem("theme", next); }catch(e){}
+};
+$("menuBtn").onclick = () => { const o = $("menu").classList.toggle("open"); $("menuBtn").setAttribute("aria-expanded", o); };
+window.addEventListener("hashchange", route);
+
+/* contact form: validation + honeypot + cooldown, no innerHTML from user input */
+let lastSend = 0;
+$("fSend").onclick = () => {
+  const V = lang === "vi";
+  const name = $("fName").value.trim(), email = $("fEmail").value.trim(), msg = $("fMsg").value.trim();
+  const errs = {
+    eName: name.length < 2 ? (V ? "Nhập họ tên (ít nhất 2 ký tự)." : "Enter your name (2+ characters).") : "",
+    eEmail: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) ? (V ? "Email không hợp lệ." : "Invalid email address.") : "",
+    eMsg: msg.length < 10 ? (V ? "Lời nhắn cần ít nhất 10 ký tự." : "Message needs 10+ characters.") : "",
+  };
+  Object.entries(errs).forEach(([k, v]) => $(k).textContent = v);
+  const note = $("formNote");
+  if (Object.values(errs).some(Boolean)) return;
+  if ($("fWeb").value){ note.textContent = ""; return; }                     // honeypot: bot
+  if (Date.now() - lastSend < 30000){ note.textContent = V ? "Vui lòng đợi 30 giây trước khi gửi lại." : "Please wait 30 seconds before sending again."; return; }
+  lastSend = Date.now();
+  note.textContent = V ? "Đang mở ứng dụng email của bạn…" : "Opening your email app…";
+  const body = `${msg}\n\n— ${name} <${email}>`;
+  window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Portfolio — " + name)}&body=${encodeURIComponent(body)}`;
+};
+
+renderAll(); route();
+window.addEventListener("load", icons);
+</script>
+</body>
+</html>

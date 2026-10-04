@@ -1,0 +1,10 @@
+services:
+  portfolio:
+    build: .
+    image: devops-portfolio:local
+    ports:
+      - "${PORT:-8080}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
