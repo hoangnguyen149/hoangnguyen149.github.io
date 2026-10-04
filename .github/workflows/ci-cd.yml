@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Trivy config scan (Dockerfile / IaC)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: config
           scan-ref: .
@@ -60,7 +60,7 @@ jobs:
           for i in $(seq 1 10); do curl -fsS http://localhost:8080/health && break; sleep 1; done
           curl -fsS http://localhost:8080/ | grep -q "DevOps Engineer"
       - name: Trivy image scan
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: portfolio:${{ github.sha }}
           severity: CRITICAL
